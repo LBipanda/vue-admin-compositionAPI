@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // function B(){
+    //     this.a = "aaa",
+    //     this.b = 111,
+    //     this.c = {
+    //         name: 'Libin',
+    //         age: 18
+    //     }
+    // }
+    // B.prototype.d = ['a','b']
+    // var bbb = new B()
+    // var tempbbb = deepClone(bbb)
+    // console.log(tempbbb)
+    // deepClone(bbb)
+    // 深拷贝======for...in循环对象的所有枚举属性，然后再使用hasOwnProperty()方法来忽略继承属性。
+    function deepClone(data){
+        const tempData = data.constructor === Array ? []:{}// 第一步复制的目标是数组还是对象
+        for(let keys in data){ // 遍历目标
+            // console.log('aaaa')
+            if(data.hasOwnProperty(keys)){    //Object的hasOwnProperty()方法返回一个布尔值，判断对象是否包含特定的自身（非继承）属性。
+                // console.log('bbbbbbb')
+                if(data[keys] && typeof data[keys] === "object"){
+                    tempData[keys] = data[keys].constructor === Array ? []:{}
+                    tempData[keys] = deepClone(data[keys])
+                }else{
+                    tempData[keys] = data[keys]
+                }
+            }
+        }
+        return tempData
+    }
+
+    // forEach()
+    // let data = [1,2,3,4,5,6,7]
+    // // data.forEach(function(res,index,arr){
+    // //     console.log(this)
+    // //     // console.log(res,index,arr)
+    // // },{name: "aaaaaa"})
+
+    // var fn = function (elem,index,arr){
+    //     console.log(this)
+    // }
+    // Array.prototype.myForEach = function(fn) {
+    //     let arr = this
+    //     let len = arr.length
+    //     let arg1 = arguments[1] || window
+
+    //     for(let i = 0;i<len;i++){
+    //         fn.apply(arg1,[arr[i],i,arr])
+    //     }
+    // }
+    // data.myForEach(fn,{name: "aaaaaa"})
+
+    // // filter()
+    // let data = [1,2,3,4,5,3,4,3]
+    // // let newArr = data.filter((elem,index,arr) => {
+    // //     return elem == 4
+    // // })
+    // // console.log(newArr)
+
+    // var fn = function(elem,index,arr){
+    //     return elem == 3
+    // }
+    // Array.prototype.myFilter = function(fn){
+    //     let arr = this;
+    //     let len = arr.length;
+    //     let arg1 = arguments[1] || window
+    //     let newArr = [] //注意这里push进来的是应用类型的下标
+    //     // let temp = null;
+
+    //     for(let i = 0;i<len;i++){
+    //         // temp = deepClone(arr[i])
+    //         fn.apply(arg1,[arr[i],i,arr])?newArr.push(temp):""
+    //     }
+    //     return newArr
+    // }
+    // let newArr = data.myFilter(fn)
+    // console.log(newArr)
+
+        // // map()映射
+        // var book =[
+        //     { name: "aaaaaa", price: 23 },
+        //     { name: "aaaaaa", price: 23 },
+        //     { name: "aaaaaa", price: 23 },
+        // ]
+        // // var tempBook = book.map(function(elem,index,arr){
+        // //     elem.name = "123"+elem.name //map里面修改了数组里面的数据，原数组也会产生影响
+        // //     return elem
+        // // })
+
+        // Array.prototype.myMap = function(fn){
+        //     let arr = this;
+        //     let len = arr.length;
+        //     let arg1 = arguments[1] || window
+        //     let newArr = []
+        //     let temp;
+
+        //     for(let i = 0;i<len;i++){
+        //         temp = deepClone(arr[i])
+                
+        //         newArr.push(fn.apply(arg1,[temp,i,arr]))
+        //     }
+        //     return newArr
+        // }
+        // function fn(elem,index,arr){
+        //     elem.name = "123"+elem.name 
+        //     return elem
+        // }
+        // var tempBook = book.myMap(fn)
+
+        // every()
+        var people = [
+            { name: 'aaa', age: 11 },
+            { name: 'aaa', age: 12 },
+            { name: 'aaa', age: 13 },
+        ]
+        // 如果有一个条件(不满足)就停止遍历，return后面的表达式就是条件
+        // var res = people.every(function(elem,index,arr){
+        //     console.log(elem.age)
+        //     return elem.age == 13
+        // })
+        // 如果有一个条件(满足)就停止遍历，return后面的表达式就是条件
+        var res = people.some(function(elem,index,arr){
+            console.log(elem.age)
+            return elem.age == 12
+        })
+        Array.prototype.myEvery = function(fn){
+            let arr = this;
+            let len = arr.length;
+            let arg1 = arguments[1]
+            let res = true
+
+            for(let i = 0 ; i < len ; i++){
+                res = fn.apply(arg1,[arr[i],i,arr])
+                if(!res){
+                    break
+                }
+            }
+            return res
+        }
+        function fn(elem,index,arr){
+            return elem.age == 13
+        }
+        console.log(people.myEvery(fn))
+
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    let one = new Promise((resolve,reject) => {
+        setTimeout(()=> {
+            resolve('one')
+            console.log('one Ok');
+        },3000)
+    })
+    let two = new Promise((resolve,reject) => {
+        setTimeout(()=> {
+            resolve('two')
+            console.log('two Ok');
+        },2000)
+    })
+    // let two = function(){
+    //     setTimeout(()=>{
+    //         console.log('two Ok');
+    //         return 
+    //     },2000)
+    // }()
+    let three = new Promise((resolve,reject) => {
+        setTimeout(()=> {
+            resolve('three')
+            console.log('three Ok');
+        },1000)
+    })
+    Promise.all([one,two,three]).then(res => {
+        console.log(res)
+        console.log('all OK')
+    })
+</script>
+</html>
