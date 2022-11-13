@@ -76,26 +76,26 @@ export default {
         })
         // 方法  获取分类
         const getCategory = (() => {
-            // infoApi.GetCategory().then(res => {
-            //     // console.log(res)
-            //     if(res.data.resCode == '0'){
-            //         categoryList.item = res.data.data.data
-            //         console.log(categoryList.item)
-            //     }
-            // })
+            infoApi.GetCategory().then(res => {
+                // console.log(res)
+                if(res.data.resCode == '0'){
+                    categoryList.item = res.data.data.data
+                    console.log(categoryList.item)
+                }
+            })
 
-            //获取分类无子级 vuex
-            // root.$store.dispatch('commonStore/getInfoCategory','').then(res => {
-            //     console.log(res)
-            //     if(res.data.resCode == '0'){
-            //         categoryList.item = res.data.data.data
-            //     }
-            // }).catch(err => {
-            //     root.$message({
-            //         type: 'error',
-            //         message: err.data.message
-            //     });   
-            // })
+            // 获取分类无子级 vuex
+            root.$store.dispatch('commonStore/getInfoCategory','').then(res => {
+                console.log(res)
+                if(res.data.resCode == '0'){
+                    categoryList.item = res.data.data.data
+                }
+            }).catch(err => {
+                root.$message({
+                    type: 'error',
+                    message: err.data.message
+                });   
+            })
 
             //获取分类有子级 vuex
             root.$store.dispatch('commonStore/getCategoryAll','').then(res => {
